@@ -51,14 +51,14 @@ done
 read -r cpu us ni sys idle iowait irq softirq steal guest guest_nice < /proc/stat
 
 total1=$(($us + $ni + $sys + $idle + $iowait + $irq + $softirq + $steal))
-idle1=$idle
+idle1=$((idle + iowait))
 
 sleep 1
 
 read -r cpu us ni sys idle iowait irq softirq steal guest guest_nice < /proc/stat
 
 total2=$(($us + $ni + $sys + $idle + $iowait + $irq + $softirq + $steal))
-idle2=$idle
+idle2=$((idle + iowait))
 
 delta_total=$((total2 - total1))
 delta_idle=$((idle2 - idle1))
