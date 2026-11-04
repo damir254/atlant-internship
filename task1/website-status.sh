@@ -43,3 +43,4 @@ done <"$1"
 echo "CHECK FINISHED FOR ALL WEBSITES IN A FILE"
 
 
+

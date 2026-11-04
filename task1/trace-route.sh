@@ -8,6 +8,7 @@ Help()
 echo "Usage: $0 <example.com>"
 }
 
+
 if ! command -v traceroute > /dev/null; then
 	echo "[!] ERROR! Utility traceroute is needed in order to run this script."
 	exit 1

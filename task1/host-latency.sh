@@ -15,3 +15,4 @@ if ! ping -c 5 "$1"; then
 	echo "Failed to reach $1"
 	exit 1 
 fi
+
