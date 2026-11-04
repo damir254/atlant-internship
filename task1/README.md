@@ -1,3 +1,5 @@
+# Bash scripts for basic system and network diagnostics
+
 * [system-usage.sh](system-usage.sh) reports CPU and memory usage and configurable threshold warnings
 * [website-status.sh](website-status.sh) reads websites from a file and reports HTTP status and response time
 * [host-latency.sh](host-latency.sh) reports latency and packet loss for a supplied host
