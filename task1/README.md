@@ -7,3 +7,10 @@
 * [trace-route.sh](trace-route.sh) traces the route to a destination
 * [dns-check.sh](dns-check.sh) reports resolution result, resolved address, and resolution time
 
+## Exit Codes
+
+All scripts use the following exit code convention:
+
+- `0` - Check passed successfully.
+- `1` - Problem detected (e.g., threshold exceeded, packet loss).
+- `2` - Invalid input or execution error.
