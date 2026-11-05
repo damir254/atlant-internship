@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+exit_code=0
+
 Help()
 {
 	echo "Syntax: [-c|m|h]"
@@ -22,29 +24,29 @@ while getopts ":hc:m:" option; do
 	case $option in
 		c) # Configure CPU Threshold
 			if ! [[ "$OPTARG" =~ ^[0-9]+$ ]] || [[ "$OPTARG" -gt 100 ]]; then
-				echo "[!] ERROR! Value must be integer between 0 and 100"
-				exit 1
+				echo "[!] ERROR: Value must be integer between 0 and 100"
+				exit 2
 			fi
 			cpu_threshold=$OPTARG;;
 		m) # Configure Memory Threshold
 			
 			if ! [[ "$OPTARG" =~ ^[0-9]+$ ]] || [[ "$OPTARG" -gt 100 ]]; then
-				echo "[!] ERROR! Value must be integer between 0 and 100"
-				exit 1
+				echo "[!] ERROR: Value must be integer between 0 and 100"
+				exit 2
 			fi
 			memory_threshold=$OPTARG;;
 			
 		h) # display Help
 			Help
-			exit;;
+			exit 0;;
 		\?)
 			echo "Invalid option - -$OPTARG"
 			Help
-			exit 1;;
+			exit 2;;
 		:) 
 			echo "Option -$OPTARG requires an argument."
 			Help
-			exit 1;;
+			exit 2;;
 	esac
 done
 
@@ -71,11 +73,15 @@ memory_usage=$(free | grep "Mem" | awk '{print int((($2 - $7) / $2) * 100) }')
 echo "Current Memory Usage: $memory_usage%"
 
 if [[ $cpu_usage -gt $cpu_threshold ]]; then
-	echo "[!] WARNING! CPU Usage is over $cpu_threshold%" 
+	echo "[!] WARNING: CPU Usage is over $cpu_threshold%"
+	exit_code=1
 fi
 
 if [[ $memory_usage -gt $memory_threshold ]]; then
-	echo "[!] WARNING! Memory Usage is over $memory_threshold%"
+	echo "[!] WARNING: Memory Usage is over $memory_threshold%"
+	exit_code=1
 fi
 
+
+exit "$exit_code"
 
